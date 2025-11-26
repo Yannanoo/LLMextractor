@@ -35,7 +35,8 @@ This project ingests每次住院/门诊 JSON，自动向 DeepSeek Chat API 发�
 5. **配置 DeepSeek API Key**  
    - macOS / Linux：`export DEEPSEEK_API_KEY="sk-..."`  
    - Windows PowerShell：`$env:DEEPSEEK_API_KEY="sk-..."`  
-   (可写入 `~/.zshrc`、PowerShell Profile 等以便永久生效。)
+   (可写入 `~/.zshrc`、PowerShell Profile 等以便永久生效。)  
+   - 也可以把 `DEEPSEEK_API_KEY=sk-xxx` 写在项目根目录的 `.env` 文件里；脚本默认会自动加载该文件，如需自定义路径可使用 `--dotenv /path/to/.env`，若想禁用自动加载可传 `--dotenv ""`。
 
 ### 2. 关键文件
 - `extract_features.py`：主入口；负责遍历 JSON、构造 prompt、调用 DeepSeek、聚合结果并落地 CSV/JSON。
@@ -54,6 +55,7 @@ python extract_features.py \
 常用参数：
 - `--patient-file /abs/path/a.json` （可重复）或 `--patient-dir /abs/path/dir`（递归扫描）。
 - `--omit-evidence` 如果 CSV 不需要 `*_evidence` 列。
+- `--csv-encoding utf-8-sig`（默认已开启），可让 Excel 直接识别中文；若使用其他工具可改回 `utf-8`。
 - `--retries / --retry-backoff / --temperature / --model` 对 DeepSeek 请求做自定义。
 
 运行后会生成两个产物：

@@ -23,6 +23,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import requests
+from dotenv import load_dotenv
 
 
 DEFAULT_API_URL = "https://api.deepseek.com/v1/chat/completions"
@@ -70,11 +71,16 @@ def write_json(data: Any, path: Path) -> None:
         json.dump(data, handle, ensure_ascii=False, indent=4)
 
 
-def write_csv(fieldnames: List[str], rows: List[Dict[str, Any]], path: Path) -> None:
-    """Serialize `rows` into a CSV file with UTF-8 encoding."""
+def write_csv(
+    fieldnames: List[str],
+    rows: List[Dict[str, Any]],
+    path: Path,
+    encoding: str = "utf-8",
+) -> None:
+    """Serialize `rows` into a CSV file using the requested encoding."""
     if not fieldnames:
         raise ValueError("CSV requires at least one column.")
-    with path.open("w", encoding="utf-8", newline="") as handle:
+    with path.open("w", encoding=encoding, newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         for row in rows:
@@ -529,11 +535,26 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="If set, omit *_evidence columns from the CSV output.",
     )
+    parser.add_argument(
+        "--csv-encoding",
+        default="utf-8-sig",
+        help="Encoding for the CSV file (default utf-8-sig for Excel compatibility).",
+    )
+    parser.add_argument(
+        "--dotenv",
+        default=".env",
+        help="Path to a dotenv file (default .env in project root). Set '' to skip loading.",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    if args.dotenv:
+        dotenv_path = Path(args.dotenv).expanduser()
+        if dotenv_path.is_file():
+            load_dotenv(dotenv_path=dotenv_path)
+
     api_key = os.getenv("DEEPSEEK_API_KEY")
     if not api_key:
         raise EnvironmentError("Missing DEEPSEEK_API_KEY environment variable.")
@@ -570,7 +591,7 @@ def main() -> None:
         include_evidence=not args.omit_evidence,
     )
     csv_output_path = Path(args.output_csv).expanduser()
-    write_csv(csv_fieldnames, csv_rows, csv_output_path)
+    write_csv(csv_fieldnames, csv_rows, csv_output_path, encoding=args.csv_encoding)
 
 
 if __name__ == "__main__":
