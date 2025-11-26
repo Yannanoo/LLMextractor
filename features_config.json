@@ -1,0 +1,95 @@
+{
+    "continuous_features": [
+        {
+            "name": "最大病灶cm (首次治疗)",
+            "alias": "MaxLesionCm"
+        },
+        {
+            "name": "SUVmax (首次治疗)",
+            "alias": "Suvmax"
+        },
+        {
+            "name": "启动一线治疗年龄（一般60为cutoff）",
+            "alias": "FirstLineAge"
+        },
+        {
+            "name": "一线治疗时累及淋巴结区域数目（大于等于5预后不良）",
+            "alias": "InvolvedNodesCount"
+        },
+        {
+            "name": "LDH (首次治疗) >240是预后不良因素",
+            "alias": "Ldh"
+        },
+        {
+            "name": "β2微球蛋白β2-MG (首次治疗) >3是预后不良因素",
+            "alias": "Beta2Mg"
+        },
+        {
+            "name": "WBC (首次治疗)",
+            "alias": "Wbc"
+        },
+        {
+            "name": "HGB (首次治疗) <120是预后不良因素",
+            "alias": "Hgb"
+        },
+        {
+            "name": "PLT (首次治疗)",
+            "alias": "Plt"
+        },
+        {
+            "name": "单核细胞绝对值 (首次治疗)",
+            "alias": "MonocyteAbs"
+        },
+        {
+            "name": "淋巴细胞绝对值 (首次治疗)",
+            "alias": "LymphocyteAbs"
+        },
+        {
+            "name": "淋巴单核细胞比 (首次治疗)",
+            "alias": "LymphocyteMonocyteRatio"
+        }
+    ],
+    "categorical_features": [
+        {
+            "name": "性别 (0:女; 1:男)",
+            "alias": "Gender"
+        },
+        {
+            "name": "一线治疗时病理分级（绝大多数是1-2级和3a级，少数3b级和转化为大B细胞的）",
+            "alias": "PathologyGrade"
+        },
+        {
+            "name": "治疗时ECOG（体力评分，一般>2是预后不良因素）",
+            "alias": "ECOG"
+        },
+        {
+            "name": "治疗时B症状(0:无; 1:有)",
+            "alias": "BSymptom"
+        },
+        {
+            "name": "首次开始治疗前分期（一般1-2称为局限期, 3-4进展期）",
+            "alias": "AnnArborStage"
+        },
+        {
+            "name": "治疗时是否骨髓受累（骨髓穿刺阳确，有是预后不良因素）",
+            "alias": "BoneMarrowInvolvement"
+        },
+        {
+            "name": "治疗时单个淋巴结是否大于6cm（大于6预后不良因素）",
+            "alias": "SingleNodeGt6cm"
+        },
+        {
+            "name": "分类1(1-chop;2-fc;3-rchop;4-rfc;5-cvp;6-rcvp;7-放疗; 8-R单药; 9-放化疗; 10-RB;11-GCHOP;12-WW;13-姑息对症)",
+            "alias": "RegimenClass"
+        },
+        {
+            "name": "评效分组1",
+            "alias": "ResponseGroup"
+        },
+        {
+            "name": "启动一线治疗后反应 (新补充)",
+            "alias": "FirstLineResponse"
+        }
+    ]
+}
+
